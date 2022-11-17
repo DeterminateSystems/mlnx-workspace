@@ -13,7 +13,7 @@ let
     doca-tools = {
       infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done
       rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
-      perftest = self.callPackage ./perftest.nix { };
+      perftest = self.callPackage ./perftest.nix { }; # done
       opensm = self.callPackage ./opensm.nix { };
       libvma_utils = self.callPackage ./libvma_utils.nix { };
       ibverbs_utils = self.callPackage ./ibverbs_utils.nix { };
