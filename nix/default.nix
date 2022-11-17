@@ -18,7 +18,11 @@ let
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { };
       rxpbench = self.callPackage ./rxpbench.nix { };
       rxp_compiler = self.callPackage ./rxp_compiler.nix { };
-      kernel_mft_dkms = self.callPackage ./kernel_mft_dkms.nix { };
+      kernel_mft_dkms = self.callPackage ./kernel_mft_dkms.nix { # done
+        # TODO: we'll probably want to restrict this, OR use some helper
+        # function from nixpkgs to create a module for all kernels
+        kernel = pkgs.linux;
+      };
       mft = self.callPackage ./mft.nix { };
       bfb2image = self.callPackage ./bfb2image.nix { };
       meson = self.callPackage ./meson.nix { };
