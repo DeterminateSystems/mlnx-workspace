@@ -3,7 +3,7 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "rdmacm-utils";
+  pname = "libibverbs1";
   version = "58mlnx43-1.58101";
 
   src = ../nv + "/${pname}_${version}_amd64.deb";
@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.librdmacm
-      self.libibverbs
+      # NOTE: this is actually from nixpkgs proper
+      libnl # for libnl-3.so.200, libnl-route-3.so.200
     ];
 
   unpackPhase = ''
@@ -40,6 +40,8 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
+    tester $out/lib/x86_64-linux-gnu
+    test -d $out/lib && chmod +x $out/lib/*
 
     runHook postInstall
   '';

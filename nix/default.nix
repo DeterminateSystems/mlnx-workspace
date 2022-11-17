@@ -12,7 +12,7 @@ let
     # doca-tools meta package
     doca-tools = {
       infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done
-      rdmacm_utils = self.callPackage ./rdmacm_utils.nix { };
+      rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
       perftest = self.callPackage ./perftest.nix { };
       opensm = self.callPackage ./opensm.nix { };
       libvma_utils = self.callPackage ./libvma_utils.nix { };
@@ -36,6 +36,8 @@ let
     libibnetdisc = self.callPackage ./libibnetdisc.nix { }; # done
     libibmad = self.callPackage ./libibmad.nix { }; # done
     libibumad = self.callPackage ./libibumad.nix { }; # done
+    librdmacm = self.callPackage ./librdmacm.nix { }; # done
+    libibverbs = self.callPackage ./libibverbs.nix { }; # done
   });
 in
 scope
