@@ -1,6 +1,10 @@
+{ pkgs ? import <nixpkgs> { }
+, lib ? pkgs.lib
+, config ? { }
+}:
 let
-  pkgs = import <nixpkgs> { };
-  inherit (pkgs) lib;
+  kernelPackages = config.boot.kernelPackages
+    or (throw "config attrset needs to contain config.boot.kernelPackages");
 
   scope = lib.makeScope pkgs.newScope (self: {
     inherit self;
@@ -18,11 +22,7 @@ let
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { };
       rxpbench = self.callPackage ./rxpbench.nix { };
       rxp_compiler = self.callPackage ./rxp_compiler.nix { };
-      kernel_mft_dkms = self.callPackage ./kernel_mft_dkms.nix { # done
-        # TODO: we'll probably want to restrict this, OR use some helper
-        # function from nixpkgs to create a module for all kernels
-        kernel = pkgs.linux;
-      };
+      kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
       mft = self.callPackage ./mft.nix { };
       bfb2image = self.callPackage ./bfb2image.nix { };
       meson = self.callPackage ./meson.nix { };
