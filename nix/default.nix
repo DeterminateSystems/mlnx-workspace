@@ -23,7 +23,7 @@ let
       ibutils2 = self.callPackage ./ibutils2.nix { }; # done
       rshim = self.callPackage ./rshim.nix { }; # done
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { }; # done
-      rxpbench = self.callPackage ./rxpbench.nix { };
+      rxpbench = self.callPackage ./rxpbench.nix { }; # done
       rxp_compiler = self.callPackage ./rxp_compiler.nix { };
       kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
       mft = self.callPackage ./mft.nix { };
