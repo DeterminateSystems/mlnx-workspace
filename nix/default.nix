@@ -26,7 +26,7 @@ let
       rxpbench = self.callPackage ./rxpbench.nix { }; # done
       rxp_compiler = self.callPackage ./rxp_compiler.nix { }; # done
       kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
-      mft = self.callPackage ./mft.nix { };
+      mft = self.callPackage ./mft.nix { }; # done
       bfb2image = self.callPackage ./bfb2image.nix { };
       meson = self.callPackage ./meson.nix { };
       openmpi = self.callPackage ./openmpi.nix { };
