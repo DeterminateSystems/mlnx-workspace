@@ -12,8 +12,6 @@ stdenv.mkDerivation rec {
     [
       autoPatchelfHook
       dpkg
-      perl
-      python3
     ];
 
   buildInputs = with pkgs;
@@ -23,6 +21,8 @@ stdenv.mkDerivation rec {
 
       # NOTE: this is actually from nixpkgs proper
       gcc-unwrapped.lib
+      perl
+      python3
     ];
 
   unpackPhase = ''
