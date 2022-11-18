@@ -14,7 +14,7 @@ let
       infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done
       rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
       perftest = self.callPackage ./perftest.nix { }; # done
-      opensm = self.callPackage ./opensm.nix { };
+      opensm = self.callPackage ./opensm.nix { }; # done
       libvma_utils = self.callPackage ./libvma_utils.nix { };
       ibverbs_utils = self.callPackage ./ibverbs_utils.nix { };
       ibutils2 = self.callPackage ./ibutils2.nix { };
@@ -38,6 +38,7 @@ let
     libibumad = self.callPackage ./libibumad.nix { }; # done
     librdmacm = self.callPackage ./librdmacm.nix { }; # done
     libibverbs = self.callPackage ./libibverbs.nix { }; # done
+    libopensm = self.callPackage ./libopensm.nix { }; # done
   });
 in
 scope
