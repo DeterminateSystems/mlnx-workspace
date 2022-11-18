@@ -24,7 +24,7 @@ let
       rshim = self.callPackage ./rshim.nix { }; # done
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { }; # done
       rxpbench = self.callPackage ./rxpbench.nix { }; # done
-      rxp_compiler = self.callPackage ./rxp_compiler.nix { };
+      rxp_compiler = self.callPackage ./rxp_compiler.nix { }; # done
       kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
       mft = self.callPackage ./mft.nix { };
       bfb2image = self.callPackage ./bfb2image.nix { };
@@ -45,7 +45,6 @@ let
     doca_libs = self.callPackage ./doca_libs.nix { }; # done
     json_c = self.callPackage ./json_c.nix { }; # done
     collectx = self.callPackage ./collectx.nix { }; # done
-    rxp_compiler = self.callPackage ./rxp_compiler.nix { }; # done
     mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
 
     libpcap = (pkgs.libpcap.overrideAttrs ({ postInstall ? "", ... }: {
