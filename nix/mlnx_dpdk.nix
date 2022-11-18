@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = with pkgs;
     [
       self.libibverbs
+      self.libpcap
 
       # NOTE: this is actually from nixpkgs proper
       rdma-core
@@ -25,15 +26,6 @@ stdenv.mkDerivation rec {
       numactl
       jansson
       elfutils
-      (libpcap.overrideAttrs ({ postInstall ? "", ... }: {
-        # 0.8 was so many years ago we'd probably have to rebuild the entirety
-        # of stdenv to get it. Supposedly, this is safe...
-        # https://github.com/jclehner/nmrpflash/issues/27
-        postInstall = postInstall + ''
-          cd $out/lib
-          ln -s libpcap.so.1 libpcap.so.0.8
-        '';
-      }))
     ];
 
   unpackPhase = ''

@@ -47,6 +47,16 @@ let
     collectx = self.callPackage ./collectx.nix { }; # done
     rxp_compiler = self.callPackage ./rxp_compiler.nix { }; # done
     mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
+
+    libpcap = (pkgs.libpcap.overrideAttrs ({ postInstall ? "", ... }: {
+      # 0.8 was so many years ago we'd probably have to rebuild the entirety
+      # of stdenv to get it. Supposedly, this is safe...
+      # https://github.com/jclehner/nmrpflash/issues/27
+      postInstall = postInstall + ''
+        cd $out/lib
+        ln -s libpcap.so.1 libpcap.so.0.8
+      '';
+    }));
   });
 in
 scope
