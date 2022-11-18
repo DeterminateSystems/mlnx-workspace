@@ -15,7 +15,7 @@ let
       rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
       perftest = self.callPackage ./perftest.nix { }; # done
       opensm = self.callPackage ./opensm.nix { }; # done
-      libvma_utils = self.callPackage ./libvma_utils.nix { };
+      libvma_utils = self.callPackage ./libvma_utils.nix { }; # done
       ibverbs_utils = self.callPackage ./ibverbs_utils.nix { };
       ibutils2 = self.callPackage ./ibutils2.nix { };
       rshim = self.callPackage ./rshim.nix { };
