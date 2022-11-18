@@ -11,13 +11,16 @@ let
 
     # doca-tools meta package
     doca-tools = {
+      # TODO: go back and validate that all these packages don't have e.g.
+      # python and perl binaries (since those don't get their shebangs patched
+      # for whatever reason; at least, that's what happened in ibutils2)
       infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done
       rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
       perftest = self.callPackage ./perftest.nix { }; # done
       opensm = self.callPackage ./opensm.nix { }; # done
       libvma_utils = self.callPackage ./libvma_utils.nix { }; # done
       ibverbs_utils = self.callPackage ./ibverbs_utils.nix { }; # done
-      ibutils2 = self.callPackage ./ibutils2.nix { };
+      ibutils2 = self.callPackage ./ibutils2.nix { }; # done
       rshim = self.callPackage ./rshim.nix { };
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { };
       rxpbench = self.callPackage ./rxpbench.nix { };
