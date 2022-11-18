@@ -21,7 +21,7 @@ let
       libvma_utils = self.callPackage ./libvma_utils.nix { }; # done
       ibverbs_utils = self.callPackage ./ibverbs_utils.nix { }; # done
       ibutils2 = self.callPackage ./ibutils2.nix { }; # done
-      rshim = self.callPackage ./rshim.nix { };
+      rshim = self.callPackage ./rshim.nix { }; # done
       doca_prime_tools = self.callPackage ./doca_prime_tools.nix { };
       rxpbench = self.callPackage ./rxpbench.nix { };
       rxp_compiler = self.callPackage ./rxp_compiler.nix { };
