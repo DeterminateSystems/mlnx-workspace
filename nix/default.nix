@@ -28,9 +28,9 @@ let
       kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
       mft = self.callPackage ./mft.nix { }; # done
       bfb2image = self.callPackage ./bfb2image.nix { }; # done
-      meson = self.callPackage ./meson.nix { };
+      # meson = self.callPackage ./meson.nix { };
       openmpi = self.callPackage ./openmpi.nix { }; # done
-      mpitests = self.callPackage ./mpitests.nix { };
+      mpitests = self.callPackage ./mpitests.nix { }; # done
       doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { };
       ofed_scripts = self.callPackage ./ofed_scripts.nix { };
     };
