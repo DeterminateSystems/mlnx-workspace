@@ -3,10 +3,12 @@
 , config ? { }
 }:
 let
-  kernelPackages = config.boot.kernelPackages
-    or (throw "config attrset needs to contain config.boot.kernelPackages");
+  kernelPackages = config.boot.kernelPackages or
+    (lib.warn "config attrset needs to contain config.boot.kernelPackages to build kernel_mft_dkms"
+      ({ callPackage = _: _: { }; })
+    );
 
-  scope = lib.makeScope pkgs.newScope (self: {
+  scope = lib.makeScope pkgs.newScope (self: rec {
     inherit self;
 
     # doca-tools meta package
@@ -34,6 +36,8 @@ let
       doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { }; # done
       ofed_scripts = self.callPackage ./ofed_scripts.nix { }; # done
     };
+
+    inherit (doca-tools) rxp_compiler;
 
     # deps not part of a metapackage (that I've gotten to)
     libibnetdisc = self.callPackage ./libibnetdisc.nix { }; # done
