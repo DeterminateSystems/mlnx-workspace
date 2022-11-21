@@ -32,7 +32,7 @@ let
       openmpi = self.callPackage ./openmpi.nix { }; # done
       mpitests = self.callPackage ./mpitests.nix { }; # done
       doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { }; # done
-      ofed_scripts = self.callPackage ./ofed_scripts.nix { };
+      ofed_scripts = self.callPackage ./ofed_scripts.nix { }; # done
     };
 
     # deps not part of a metapackage (that I've gotten to)
