@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    mv ./src/opt/mellanox/collectx/lib ./src
+    mv ./src/opt/mellanox/collectx/* ./src
+    rm -rf ./src/opt
 
     runHook postUnpack
   '';
@@ -40,13 +41,12 @@ stdenv.mkDerivation rec {
 
     tester() {
       dir="$1"
-      test -d "$1" && (mv "$1"/* "$1"/.. && rmdir "$1") || (return 0)
+      test -d "$1" && (cp -r "$1"/* "$1"/.. && rm -r "$1") || (return 0)
     }
 
     tester $out/usr
     tester $out/lib/x86_64-linux-gnu
-    test -d $out/lib && chmod +x $out/lib/*
-    test -d $out/lib && chmod +x $out/lib/*/*
+    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

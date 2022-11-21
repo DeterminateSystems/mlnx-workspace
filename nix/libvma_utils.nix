@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
     tester() {
       dir="$1"
-      test -d "$1" && (mv "$1"/* "$1"/.. && rmdir "$1") || (return 0)
+      test -d "$1" && (cp -r "$1"/* "$1"/.. && rm -r "$1") || (return 0)
     }
 
     tester $out/usr
