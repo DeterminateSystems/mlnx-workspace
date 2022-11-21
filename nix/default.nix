@@ -31,7 +31,7 @@ let
       # meson = self.callPackage ./meson.nix { };
       openmpi = self.callPackage ./openmpi.nix { }; # done
       mpitests = self.callPackage ./mpitests.nix { }; # done
-      doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { };
+      doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { }; # done
       ofed_scripts = self.callPackage ./ofed_scripts.nix { };
     };
 
