@@ -29,7 +29,7 @@ let
       mft = self.callPackage ./mft.nix { }; # done
       bfb2image = self.callPackage ./bfb2image.nix { }; # done
       meson = self.callPackage ./meson.nix { };
-      openmpi = self.callPackage ./openmpi.nix { };
+      openmpi = self.callPackage ./openmpi.nix { }; # done
       mpitests = self.callPackage ./mpitests.nix { };
       doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { };
       ofed_scripts = self.callPackage ./ofed_scripts.nix { };
@@ -46,6 +46,9 @@ let
     json_c = self.callPackage ./json_c.nix { }; # done
     collectx = self.callPackage ./collectx.nix { }; # done
     mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
+    ucx = self.callPackage ./ucx.nix { }; # done
+    hcoll = self.callPackage ./hcoll.nix { }; # done
+    sharp = self.callPackage ./sharp.nix { }; # done
 
     libpcap = (pkgs.libpcap.overrideAttrs ({ postInstall ? "", ... }: {
       # 0.8 was so many years ago we'd probably have to rebuild the entirety
