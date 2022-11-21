@@ -37,22 +37,58 @@ let
       ofed_scripts = self.callPackage ./ofed_scripts.nix { }; # done
     };
 
-    inherit (doca-tools) rxp_compiler;
+    # doca-runtime meta package
+    doca-runtime = {
+      mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
+      rdma_core = self.callPackage ./rdma_core.nix { };
+      ibacm = self.callPackage ./ibacm.nix { };
+      mlnx_ofed_kernel_dkms = self.callPackage ./mlnx_ofed_kernel_dkms.nix { };
+      iser_dkms = self.callPackage ./iser_dkms.nix { };
+      knem_dkms = self.callPackage ./knem_dkms.nix { };
+      libibumad = self.callPackage ./libibumad.nix { }; # done
+      openvswitch_switch = self.callPackage ./openvswitch_switch.nix { };
+      ucx = self.callPackage ./ucx.nix { }; # done
+      srp_dkms = self.callPackage ./srp_dkms.nix { };
+      libvma = self.callPackage ./libvma.nix { };
+      librdmacm1 = self.callPackage ./librdmacm1.nix { };
+      mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { };
+      libopensm = self.callPackage ./libopensm.nix { }; # done
+      knem = self.callPackage ./knem.nix { };
+      isert_dkms = self.callPackage ./isert_dkms.nix { };
+      mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { };
+      doca_prime_runtime = doca-tools.doca_prime_runtime;
+      doca_grpc = self.callPackage ./doca_grpc.nix { };
+      python3_protobuf = self.callPackage ./python3_protobuf.nix { };
+      python3_grpcio = self.callPackage ./python3_grpcio.nix { };
+      collectx = self.callPackage ./collectx.nix { }; # done
+      mlnx_nvme_dkms = self.callPackage ./mlnx_nvme_dkms.nix { };
+      flexio = self.callPackage ./flexio.nix { };
+    };
+
+    inherit (doca-tools)
+      rxp_compiler
+      ;
+
+    inherit (doca-runtime)
+      mlnx_dpdk
+      libibumad
+      ucx
+      libopensm
+      collectx
+      ;
 
     # deps not part of a metapackage (that I've gotten to)
     libibnetdisc = self.callPackage ./libibnetdisc.nix { }; # done
     libibmad = self.callPackage ./libibmad.nix { }; # done
-    libibumad = self.callPackage ./libibumad.nix { }; # done
     librdmacm = self.callPackage ./librdmacm.nix { }; # done
     libibverbs = self.callPackage ./libibverbs.nix { }; # done
-    libopensm = self.callPackage ./libopensm.nix { }; # done
     doca_libs = self.callPackage ./doca_libs.nix { }; # done
     json_c = self.callPackage ./json_c.nix { }; # done
-    collectx = self.callPackage ./collectx.nix { }; # done
-    mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
-    ucx = self.callPackage ./ucx.nix { }; # done
     hcoll = self.callPackage ./hcoll.nix { }; # done
     sharp = self.callPackage ./sharp.nix { }; # done
+
+    # TODO: rather than refer to packages, move stuff like gcc-unwrapped here
+    # (so it's accessible through `self`)
 
     libpcap = (pkgs.libpcap.overrideAttrs ({ postInstall ? "", ... }: {
       # 0.8 was so many years ago we'd probably have to rebuild the entirety
