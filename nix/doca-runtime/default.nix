@@ -4,7 +4,7 @@
 }:
 {
   mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
-  rdma_core = self.callPackage ./rdma_core.nix { };
+  rdma_core = self.callPackage ./rdma_core.nix { }; # done
   ibacm = self.callPackage ./ibacm.nix { };
   mlnx_ofed_kernel_dkms = kernelPackages.callPackage ./mlnx_ofed_kernel_dkms.nix { };
   iser_dkms = self.callPackage ./iser_dkms.nix { };
