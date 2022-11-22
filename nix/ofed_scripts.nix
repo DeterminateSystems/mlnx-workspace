@@ -14,6 +14,12 @@ stdenv.mkDerivation rec {
       dpkg
     ];
 
+  buildInputs = with pkgs;
+    [
+      perl
+      python3
+    ];
+
   unpackPhase = ''
     runHook preUnpack
 

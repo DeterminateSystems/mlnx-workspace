@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
       libnl
       udev
       zlib
+      perl
     ];
 
   unpackPhase = ''

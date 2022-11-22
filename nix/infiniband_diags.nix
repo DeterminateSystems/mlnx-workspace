@@ -12,7 +12,6 @@ stdenv.mkDerivation rec {
     [
       autoPatchelfHook
       dpkg
-      perl
     ];
 
   buildInputs = with pkgs;
@@ -20,6 +19,8 @@ stdenv.mkDerivation rec {
       self.libibnetdisc
       self.libibmad
       self.libibumad
+
+      perl
     ];
 
   unpackPhase = ''
