@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "mpitests";
-  version = "3.2.20-de56b6b.58101";
+  pname = "rdmacm-utils";
+  version = "58mlnx43-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,15 +16,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.doca-tools.openmpi
+      self.librdmacm
+      self.libibverbs
     ];
 
   unpackPhase = ''
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    mv ./src/usr/mpi/gcc/openmpi*/* ./src
-    rm -rf ./src/usr
 
     runHook postUnpack
   '';
@@ -41,8 +40,6 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    tester $out/lib/x86_64-linux-gnu
-    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

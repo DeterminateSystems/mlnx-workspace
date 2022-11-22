@@ -3,21 +3,14 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "ofed-scripts";
-  version = "5.8-OFED.5.8.1.0.1";
+  pname = "libibumad3";
+  version = "58mlnx43-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
-      autoPatchelfHook
       dpkg
-    ];
-
-  buildInputs = with pkgs;
-    [
-      perl
-      python3
     ];
 
   unpackPhase = ''

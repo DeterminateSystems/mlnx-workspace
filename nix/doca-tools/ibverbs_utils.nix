@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "rdmacm-utils";
+  pname = "ibverbs-utils";
   version = "58mlnx43-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,7 +16,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.librdmacm
       self.libibverbs
     ];
 

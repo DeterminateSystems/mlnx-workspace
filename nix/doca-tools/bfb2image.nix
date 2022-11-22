@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "ibutils2";
-  version = "2.1.1-0.156.MLNX20221016.g4aceb16.58101";
+  pname = "bfb2image";
+  version = "1.0.0";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_all.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,12 +16,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libibverbs
-      self.libibumad
-
-      # NOTE: this is actually from nixpkgs proper
-      gcc-unwrapped.lib
-      perl
       python3
     ];
 
@@ -29,13 +23,12 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    # These perl files bury their shebang to like the 35th line, so the auto
-    # patchshebang hook doesn't find it. Manually add it.
-    sed -i '1i#!/usr/bin/perl -w' src/usr/bin/*.pl
 
     runHook postUnpack
   '';
 
+  # NOTE: It drops things in /opt/mellanox/doca... I dunno how to sort it, so
+  # I'm leaving it there for now.
   installPhase = ''
     runHook preInstall
 
@@ -48,7 +41,6 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    patchShebangs $out/bin/*.pl $out/bin/*.py
 
     runHook postInstall
   '';

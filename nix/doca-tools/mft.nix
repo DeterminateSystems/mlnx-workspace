@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "doca-remote-memory-app";
-  version = "22.07.0";
+  pname = "mft";
+  version = "4.22.0-96";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,17 +16,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libibverbs
-      self.libpcap
-      self.json_c
-
       # NOTE: this is actually from nixpkgs proper
       gcc-unwrapped.lib
-      rdma-core
-      jansson
-      elfutils
-      numactl
-      libbsd
+      zlib
     ];
 
   unpackPhase = ''
@@ -49,8 +41,8 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    tester $out/lib/x86_64-linux-gnu
-    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
+    rm $out/bin/mst # symlink to /etc/init.d/mst, which we don't have
+    rm $out/bin/mft_uninstall.sh # uh yeah
 
     runHook postInstall
   '';

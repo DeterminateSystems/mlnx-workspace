@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "bfb2image";
-  version = "1.0.0";
+  pname = "rxp-compiler";
+  version = "22.10.2";
 
-  src = ../nv + "/${pname}_${version}_all.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      python3
+      # NOTE: this is actually from nixpkgs proper
+      gcc-unwrapped.lib
     ];
 
   unpackPhase = ''
@@ -27,8 +28,6 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  # NOTE: It drops things in /opt/mellanox/doca... I dunno how to sort it, so
-  # I'm leaving it there for now.
   installPhase = ''
     runHook preInstall
 
@@ -41,6 +40,8 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
+    tester $out/lib/x86_64-linux-gnu
+    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

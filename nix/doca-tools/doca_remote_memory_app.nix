@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "rxp-compiler";
-  version = "22.10.2";
+  pname = "doca-remote-memory-app";
+  version = "22.07.0";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,8 +16,17 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
+      self.libibverbs
+      self.libpcap
+      self.json_c
+
       # NOTE: this is actually from nixpkgs proper
       gcc-unwrapped.lib
+      rdma-core
+      jansson
+      elfutils
+      numactl
+      libbsd
     ];
 
   unpackPhase = ''

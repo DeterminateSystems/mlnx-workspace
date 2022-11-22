@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "infiniband-diags";
-  version = "58mlnx43-1.58101";
+  pname = "libvma-utils";
+  version = "9.7.0-1";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,11 +16,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libibnetdisc
-      self.libibmad
-      self.libibumad
-
-      perl
+      # NOTE: this is actually from nixpkgs proper
+      gcc-unwrapped.lib
     ];
 
   unpackPhase = ''
@@ -43,8 +40,6 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    tester $out/lib/x86_64-linux-gnu
-    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

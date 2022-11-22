@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "libopensm";
-  version = "5.13.0.MLNX20221016.10d3954-0.1.58101";
+  pname = "openmpi";
+  version = "4.1.5a1-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_all.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,13 +16,22 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libibumad
+      self.ucx
+      self.hcoll
+
+      # NOTE: this is actually from nixpkgs proper
+      libnl
+      udev
+      zlib
+      perl
     ];
 
   unpackPhase = ''
     runHook preUnpack
 
     dpkg-deb -x $src ./src
+    mv ./src/usr/mpi/gcc/openmpi*/* ./src
+    rm -rf ./src/usr
 
     runHook postUnpack
   '';

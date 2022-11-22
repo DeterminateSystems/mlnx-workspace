@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "rxpbench";
-  version = "22.10.0";
+  pname = "perftest";
+  version = "4.5-0.18.gfcddfe0.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,20 +16,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
+      self.librdmacm
       self.libibverbs
-      self.json_c
-      self.libpcap
-      self.rxp_compiler
+      self.libibumad
 
       # NOTE: this is actually from nixpkgs proper
-      gcc-unwrapped.lib
-      rdma-core
-      libbsd
-      numactl
-      jansson
-      elfutils
-      hyperscan
-      python2
+      pciutils
+      rdma-core # libmlx5.so.1; for whatever reason, the vendored debian
+                # package doesn't include this dynamic object, so we
+                # have to use the one from upstream, as packaged by
+                # nixpkgs
     ];
 
   unpackPhase = ''
@@ -56,4 +52,3 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 }
-

@@ -3,14 +3,23 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "libibumad3";
-  version = "58mlnx43-1.58101";
+  pname = "rshim";
+  version = "2.0.6-18";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
+      autoPatchelfHook
       dpkg
+    ];
+
+  buildInputs = with pkgs;
+    [
+      # NOTE: this is actually from nixpkgs proper
+      pciutils
+      libusb1
+      fuse
     ];
 
   unpackPhase = ''
@@ -33,8 +42,6 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    tester $out/lib/x86_64-linux-gnu
-    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

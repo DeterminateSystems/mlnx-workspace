@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "mft";
-  version = "4.22.0-96";
+  pname = "doca-prime-tools";
+  version = "1.5.0055-1";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,9 +16,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
+      self.doca_libs
+      self.json_c
+
       # NOTE: this is actually from nixpkgs proper
+      openssl_1_1
       gcc-unwrapped.lib
       zlib
+      glib
+      libbsd
     ];
 
   unpackPhase = ''
@@ -29,6 +35,8 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
+  # NOTE: It drops things in /opt/mellanox/doca... I dunno how to sort it, so
+  # I'm leaving it there for now.
   installPhase = ''
     runHook preInstall
 
@@ -41,8 +49,6 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
-    rm $out/bin/mst # symlink to /etc/init.d/mst, which we don't have
-    rm $out/bin/mft_uninstall.sh # uh yeah
 
     runHook postInstall
   '';

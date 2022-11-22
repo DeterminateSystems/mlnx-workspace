@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "doca-prime-tools";
-  version = "1.5.0055-1";
+  pname = "opensm";
+  version = "5.13.0.MLNX20221016.10d3954-0.1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,15 +16,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.doca_libs
-      self.json_c
+      self.libopensm
 
       # NOTE: this is actually from nixpkgs proper
-      openssl_1_1
       gcc-unwrapped.lib
-      zlib
-      glib
-      libbsd
     ];
 
   unpackPhase = ''
@@ -35,8 +30,6 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  # NOTE: It drops things in /opt/mellanox/doca... I dunno how to sort it, so
-  # I'm leaving it there for now.
   installPhase = ''
     runHook preInstall
 
@@ -49,6 +42,8 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
+    tester $out/lib/x86_64-linux-gnu
+    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

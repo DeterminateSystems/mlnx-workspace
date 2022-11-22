@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "perftest";
-  version = "4.5-0.18.gfcddfe0.58101";
+  pname = "ucx";
+  version = "1.14.0-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,16 +16,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.librdmacm
       self.libibverbs
-      self.libibumad
+      self.librdmacm
 
       # NOTE: this is actually from nixpkgs proper
-      pciutils
-      rdma-core # libmlx5.so.1; for whatever reason, the vendored debian
-                # package doesn't include this dynamic object, so we
-                # have to use the one from upstream, as packaged by
-                # nixpkgs
+      gcc-unwrapped.lib
+      rdma-core
+      numactl
     ];
 
   unpackPhase = ''
@@ -48,6 +45,8 @@ stdenv.mkDerivation rec {
     }
 
     tester $out/usr
+    tester $out/lib/x86_64-linux-gnu
+    find $out \( -name '*.so' -o -name '*.so.*' \) -exec chmod +x {} \;
 
     runHook postInstall
   '';

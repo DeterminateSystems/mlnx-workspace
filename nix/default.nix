@@ -12,58 +12,10 @@ let
     inherit self;
 
     # doca-tools meta package
-    doca-tools = {
-      # TODO: go back and validate that all these packages don't have e.g.
-      # python and perl binaries (since those don't get their shebangs patched
-      # for whatever reason; at least, that's what happened in ibutils2)
-      infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done
-      rdmacm_utils = self.callPackage ./rdmacm_utils.nix { }; # done
-      perftest = self.callPackage ./perftest.nix { }; # done
-      opensm = self.callPackage ./opensm.nix { }; # done
-      libvma_utils = self.callPackage ./libvma_utils.nix { }; # done
-      ibverbs_utils = self.callPackage ./ibverbs_utils.nix { }; # done
-      ibutils2 = self.callPackage ./ibutils2.nix { }; # done
-      rshim = self.callPackage ./rshim.nix { }; # done
-      doca_prime_tools = self.callPackage ./doca_prime_tools.nix { }; # done
-      rxpbench = self.callPackage ./rxpbench.nix { }; # done
-      rxp_compiler = self.callPackage ./rxp_compiler.nix { }; # done
-      kernel_mft_dkms = kernelPackages.callPackage ./kernel_mft_dkms.nix { }; # done
-      mft = self.callPackage ./mft.nix { }; # done
-      bfb2image = self.callPackage ./bfb2image.nix { }; # done
-      # meson = self.callPackage ./meson.nix { };
-      openmpi = self.callPackage ./openmpi.nix { }; # done
-      mpitests = self.callPackage ./mpitests.nix { }; # done
-      doca_remote_memory_app = self.callPackage ./doca_remote_memory_app.nix { }; # done
-      ofed_scripts = self.callPackage ./ofed_scripts.nix { }; # done
-    };
+    doca-tools = import ./doca-tools { inherit self kernelPackages; };
 
     # doca-runtime meta package
-    doca-runtime = {
-      mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
-      rdma_core = self.callPackage ./rdma_core.nix { };
-      ibacm = self.callPackage ./ibacm.nix { };
-      mlnx_ofed_kernel_dkms = self.callPackage ./mlnx_ofed_kernel_dkms.nix { };
-      iser_dkms = self.callPackage ./iser_dkms.nix { };
-      knem_dkms = self.callPackage ./knem_dkms.nix { };
-      libibumad = self.callPackage ./libibumad.nix { }; # done
-      openvswitch_switch = self.callPackage ./openvswitch_switch.nix { };
-      ucx = self.callPackage ./ucx.nix { }; # done
-      srp_dkms = self.callPackage ./srp_dkms.nix { };
-      libvma = self.callPackage ./libvma.nix { };
-      librdmacm1 = self.callPackage ./librdmacm1.nix { };
-      mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { };
-      libopensm = self.callPackage ./libopensm.nix { }; # done
-      knem = self.callPackage ./knem.nix { };
-      isert_dkms = self.callPackage ./isert_dkms.nix { };
-      mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { };
-      doca_prime_runtime = doca-tools.doca_prime_runtime;
-      doca_grpc = self.callPackage ./doca_grpc.nix { };
-      python3_protobuf = self.callPackage ./python3_protobuf.nix { };
-      python3_grpcio = self.callPackage ./python3_grpcio.nix { };
-      collectx = self.callPackage ./collectx.nix { }; # done
-      mlnx_nvme_dkms = self.callPackage ./mlnx_nvme_dkms.nix { };
-      flexio = self.callPackage ./flexio.nix { };
-    };
+    doca-runtime = import ./doca-runtime { inherit self kernelPackages doca-tools; };
 
     inherit (doca-tools)
       rxp_compiler

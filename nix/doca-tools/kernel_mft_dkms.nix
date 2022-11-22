@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   pname = "kernel-mft-dkms";
   version = "4.22.0-96";
 
-  src = ../nv + "/${pname}_${version}_all.deb";
+  src = ../../nv + "/${pname}_${version}_all.deb";
 
   nativeBuildInputs = with pkgs;
     [

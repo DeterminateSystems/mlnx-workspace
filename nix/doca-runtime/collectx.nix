@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   pname = "collectx";
   version = "1.11.0-6225698";
 
-  src = ../nv + "/${pname}_${version}-ubuntu20.04-x86_64-clxapi.deb";
+  src = ../../nv + "/${pname}_${version}-ubuntu20.04-x86_64-clxapi.deb";
 
   nativeBuildInputs = with pkgs;
     [

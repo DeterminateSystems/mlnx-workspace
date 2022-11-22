@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "opensm";
-  version = "5.13.0.MLNX20221016.10d3954-0.1.58101";
+  pname = "infiniband-diags";
+  version = "58mlnx43-1.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,10 +16,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libopensm
+      self.libibnetdisc
+      self.libibmad
+      self.libibumad
 
-      # NOTE: this is actually from nixpkgs proper
-      gcc-unwrapped.lib
+      perl
     ];
 
   unpackPhase = ''

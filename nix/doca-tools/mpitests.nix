@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "mlnx-dpdk";
-  version = "20.11.0-6.1.5";
+  pname = "mpitests";
+  version = "3.2.20-de56b6b.58101";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,24 +16,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
-      self.libibverbs
-      self.libpcap
-
-      # NOTE: this is actually from nixpkgs proper
-      rdma-core
-      libbsd
-      zlib
-      numactl
-      jansson
-      elfutils
+      self.doca-tools.openmpi
     ];
 
   unpackPhase = ''
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    mv ./src/opt/mellanox/dpdk/* ./src
-    rm -rf ./src/opt
+    mv ./src/usr/mpi/gcc/openmpi*/* ./src
+    rm -rf ./src/usr
 
     runHook postUnpack
   '';

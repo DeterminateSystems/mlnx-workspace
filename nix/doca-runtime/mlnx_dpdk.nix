@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "ucx";
-  version = "1.14.0-1.58101";
+  pname = "mlnx-dpdk";
+  version = "20.11.0-6.1.5";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -17,18 +17,23 @@ stdenv.mkDerivation rec {
   buildInputs = with pkgs;
     [
       self.libibverbs
-      self.librdmacm
+      self.libpcap
 
       # NOTE: this is actually from nixpkgs proper
-      gcc-unwrapped.lib
       rdma-core
+      libbsd
+      zlib
       numactl
+      jansson
+      elfutils
     ];
 
   unpackPhase = ''
     runHook preUnpack
 
     dpkg-deb -x $src ./src
+    mv ./src/opt/mellanox/dpdk/* ./src
+    rm -rf ./src/opt
 
     runHook postUnpack
   '';

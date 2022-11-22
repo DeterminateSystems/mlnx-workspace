@@ -3,10 +3,10 @@
 , self
 }:
 stdenv.mkDerivation rec {
-  pname = "libvma-utils";
-  version = "9.7.0-1";
+  pname = "rxpbench";
+  version = "22.10.0";
 
-  src = ../nv + "/${pname}_${version}_amd64.deb";
+  src = ../../nv + "/${pname}_${version}_amd64.deb";
 
   nativeBuildInputs = with pkgs;
     [
@@ -16,8 +16,20 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs;
     [
+      self.libibverbs
+      self.json_c
+      self.libpcap
+      self.rxp_compiler
+
       # NOTE: this is actually from nixpkgs proper
       gcc-unwrapped.lib
+      rdma-core
+      libbsd
+      numactl
+      jansson
+      elfutils
+      hyperscan
+      python2
     ];
 
   unpackPhase = ''
@@ -44,3 +56,4 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 }
+
