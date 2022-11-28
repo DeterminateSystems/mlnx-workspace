@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
     [
       autoPatchelfHook
       dpkg
+      rsync
     ];
 
   buildInputs = with pkgs;
@@ -37,7 +38,7 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    mv ./src/opt/mellanox/doca/* ./src
+    rsync -a ./src/opt/mellanox/doca/ ./src
     rm -rf ./src/opt
 
     runHook postUnpack

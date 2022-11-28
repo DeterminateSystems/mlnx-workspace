@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
     [
       autoPatchelfHook
       dpkg
+      rsync
     ];
 
   buildInputs = with pkgs;
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    mv ./src/usr/mpi/gcc/openmpi*/* ./src
+    rsync -a ./src/usr/mpi/gcc/openmpi*/ ./src
     rm -rf ./src/usr
 
     runHook postUnpack
