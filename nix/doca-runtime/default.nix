@@ -14,7 +14,7 @@
   ucx = self.callPackage ./ucx.nix { }; # done
   srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { };
   libvma = self.callPackage ./libvma.nix { }; # done
-  librdmacm1 = self.callPackage ./librdmacm1.nix { };
+  librdmacm1 = doca-tools.librdmacm;
   mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { };
   libopensm = self.callPackage ./libopensm.nix { }; # done
   knem = self.callPackage ./knem.nix { };
