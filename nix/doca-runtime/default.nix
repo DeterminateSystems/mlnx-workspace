@@ -10,7 +10,7 @@
   iser_dkms = self.callPackage ./iser_dkms.nix { };
   knem_dkms = kernelPackages.callPackage ./knem_dkms.nix { };
   libibumad = self.callPackage ./libibumad.nix { }; # done
-  openvswitch_switch = self.callPackage ./openvswitch_switch.nix { };
+  openvswitch_switch = self.callPackage ./openvswitch_switch.nix { }; # done
   ucx = self.callPackage ./ucx.nix { }; # done
   srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { };
   libvma = self.callPackage ./libvma.nix { };
