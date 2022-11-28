@@ -17,7 +17,7 @@
   librdmacm1 = doca-tools.librdmacm;
   mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { }; # done
   libopensm = self.callPackage ./libopensm.nix { }; # done
-  knem = self.callPackage ./knem.nix { };
+  knem = self.callPackage ./knem.nix { }; # done
   isert_dkms = kernelPackages.callPackage ./isert_dkms.nix { };
   mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { };
   doca_prime_runtime = doca-tools.doca_prime_runtime;
