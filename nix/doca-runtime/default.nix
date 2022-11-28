@@ -15,7 +15,7 @@
   srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { };
   libvma = self.callPackage ./libvma.nix { }; # done
   librdmacm1 = doca-tools.librdmacm;
-  mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { };
+  mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { }; # done
   libopensm = self.callPackage ./libopensm.nix { }; # done
   knem = self.callPackage ./knem.nix { };
   isert_dkms = kernelPackages.callPackage ./isert_dkms.nix { };
