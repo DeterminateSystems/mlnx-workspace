@@ -38,6 +38,7 @@ let
     json_c = self.callPackage ./json_c.nix { }; # done
     hcoll = self.callPackage ./hcoll.nix { }; # done
     sharp = self.callPackage ./sharp.nix { }; # done
+    dpcp = self.callPackage ./dpcp.nix { }; # done
 
     # TODO: rather than refer to packages, move stuff like gcc-unwrapped here
     # (so it's accessible through `self`)
