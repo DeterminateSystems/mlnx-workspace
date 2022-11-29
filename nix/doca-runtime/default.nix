@@ -26,5 +26,5 @@
   python3_grpcio = self.callPackage ./python3_grpcio.nix { };
   collectx = self.callPackage ./collectx.nix { }; # done
   mlnx_nvme_dkms = kernelPackages.callPackage ./mlnx_nvme_dkms.nix { };
-  flexio = self.callPackage ./flexio.nix { };
+  flexio = self.callPackage ./flexio.nix { }; # done
 }
