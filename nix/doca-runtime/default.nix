@@ -21,7 +21,7 @@
   isert_dkms = kernelPackages.callPackage ./isert_dkms.nix { };
   mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { }; # done
   doca_prime_runtime = doca-tools.doca_prime_runtime;
-  doca_grpc = self.callPackage ./doca_grpc.nix { };
+  doca_grpc = self.callPackage ./doca_grpc.nix { }; # done
   python3_protobuf = self.callPackage ./python3_protobuf.nix { };
   python3_grpcio = self.callPackage ./python3_grpcio.nix { };
   collectx = self.callPackage ./collectx.nix { }; # done
