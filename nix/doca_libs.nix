@@ -38,8 +38,13 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     dpkg-deb -x $src ./src
-    rsync -a ./src/opt/mellanox/doca/ ./src
+    opt=/opt/mellanox/doca
+    rsync -a ./src/"$opt"/ ./src
     rm -rf ./src/opt
+
+    for f in $(grep -rl "$opt"); do
+      sed -i "s@$opt@${placeholder "out"}@g" "$f"
+    done
 
     runHook postUnpack
   '';
