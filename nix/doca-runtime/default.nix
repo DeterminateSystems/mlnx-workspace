@@ -22,8 +22,8 @@
   mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { }; # done
   doca_prime_runtime = doca-tools.doca_prime_runtime; # done
   doca_grpc = self.callPackage ./doca_grpc.nix { }; # done
-  python3_protobuf = self.callPackage ./python3_protobuf.nix { };
-  python3_grpcio = self.callPackage ./python3_grpcio.nix { };
+  # python3_protobuf = self.callPackage ./python3_protobuf.nix { };
+  # python3_grpcio = self.callPackage ./python3_grpcio.nix { };
   collectx = self.callPackage ./collectx.nix { }; # done
   mlnx_nvme_dkms = kernelPackages.callPackage ./mlnx_nvme_dkms.nix { };
   flexio = self.callPackage ./flexio.nix { }; # done
