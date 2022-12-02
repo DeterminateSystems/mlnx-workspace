@@ -14,13 +14,13 @@
   ucx = self.callPackage ./ucx.nix { }; # done
   srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { };
   libvma = self.callPackage ./libvma.nix { }; # done
-  librdmacm1 = doca-tools.librdmacm;
+  librdmacm1 = doca-tools.librdmacm; # done
   mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { }; # done
   libopensm = self.callPackage ./libopensm.nix { }; # done
   knem = self.callPackage ./knem.nix { }; # done
   isert_dkms = kernelPackages.callPackage ./isert_dkms.nix { };
   mlnx_iproute2 = self.callPackage ./mlnx_iproute2.nix { }; # done
-  doca_prime_runtime = doca-tools.doca_prime_runtime;
+  doca_prime_runtime = doca-tools.doca_prime_runtime; # done
   doca_grpc = self.callPackage ./doca_grpc.nix { }; # done
   python3_protobuf = self.callPackage ./python3_protobuf.nix { };
   python3_grpcio = self.callPackage ./python3_grpcio.nix { };
