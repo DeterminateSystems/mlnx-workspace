@@ -8,7 +8,7 @@
   ibacm = self.callPackage ./ibacm.nix { }; # done
   mlnx_ofed_kernel_dkms = kernelPackages.callPackage ./mlnx_ofed_kernel_dkms.nix { };
   iser_dkms = self.callPackage ./iser_dkms.nix { };
-  knem_dkms = kernelPackages.callPackage ./knem_dkms.nix { };
+  knem_dkms = kernelPackages.callPackage ./knem_dkms.nix { }; # done
   libibumad = self.callPackage ./libibumad.nix { }; # done
   openvswitch_switch = self.callPackage ./openvswitch_switch.nix { }; # done
   ucx = self.callPackage ./ucx.nix { }; # done

@@ -4,7 +4,7 @@
 }:
 let
   kernelPackages = config.boot.kernelPackages or
-    (lib.warn "config attrset needs to contain config.boot.kernelPackages to build kernel_mft_dkms"
+    (lib.warn "config attrset needs to contain config.boot.kernelPackages to build *_dkms"
       ({ callPackage = _: _: { }; })
     );
 
