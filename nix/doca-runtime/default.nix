@@ -14,7 +14,7 @@ rec {
   libibumad = self.callPackage ./libibumad.nix { }; # done
   openvswitch_switch = self.callPackage ./openvswitch_switch.nix { }; # done
   ucx = self.callPackage ./ucx.nix { }; # done
-  srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { };
+  srp_dkms = kernelPackages.callPackage ./srp_dkms.nix { }; # problematic
   libvma = self.callPackage ./libvma.nix { }; # done
   librdmacm1 = doca-tools.librdmacm; # done
   mlnx_ethtool = self.callPackage ./mlnx_ethtool.nix { }; # done
