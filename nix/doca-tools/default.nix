@@ -1,5 +1,6 @@
 { self
 , kernelPackages
+, pkgs
 }:
 {
   infiniband_diags = self.callPackage ./infiniband_diags.nix { }; # done

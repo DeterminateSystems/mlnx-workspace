@@ -1,4 +1,5 @@
 { self
+, pkgs
 , kernelPackages
 , doca-tools
 }:
@@ -29,4 +30,6 @@ rec {
   collectx = self.callPackage ./collectx.nix { }; # done
   mlnx_nvme_dkms = kernelPackages.callPackage ./mlnx_nvme_dkms.nix { };
   flexio = self.callPackage ./flexio.nix { }; # done
+
+  kernel_5_8 = self.callPackage ./58.nix { };
 }
