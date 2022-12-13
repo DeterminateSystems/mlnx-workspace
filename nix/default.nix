@@ -10,13 +10,13 @@ let
     # );
 
   scope = lib.makeScope pkgs.newScope (self: rec {
-    inherit self;
+    inherit self kernelPackages;
 
     # doca-tools meta package
-    doca-tools = import ./doca-tools { inherit self kernelPackages pkgs; };
+    doca-tools = self.callPackage ./doca-tools {};
 
     # doca-runtime meta package
-    doca-runtime = import ./doca-runtime { inherit self kernelPackages doca-tools pkgs; };
+    doca-runtime = self.callPackage ./doca-runtime {};
 
     inherit (doca-tools)
       rxp_compiler
