@@ -11,6 +11,21 @@ with lib;
   # branchVersion needs to be x.y
   extraMeta.branch = versions.majorMinor version;
 
+  # If iterating on this kernel in some way, this makes the build much faster
+  #ignoreConfigErrors = true;
+  #autoModules = false;
+  #structuredExtraConfig = with lib.kernel; lib.mapAttrs (n: v: lib.mkForce v) {
+  #  XEN = yes;
+  #  DRM = no;
+  #  MLX4_EN = module;
+  #  MLX5_CORE = module;
+  #  MLXSW_CORE = module;
+  #  MLXFW = module;
+  #  MLX4_INFINIBAND = module;
+  #  MLX5_INFINIBAND = module;
+  #  MLX_PLATFORM = module;
+  #};
+
   kernelPatches = [
     {
       name = "fix-with-newer-bintools";
@@ -26,11 +41,4 @@ with lib;
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
     sha256 = "0d2mm16mjyl2d734ak0lj8vd76h3r0san7l7g2zczd5pjkva7d2a";
   };
-} // (args.argsOverride or {}))).overrideAttrs ({...}:{
-  postUnpack = ''
-    touch $dev
-    mkdir -p $out
-    cp -r . $out
-    exit
-  '';
-})
+}))

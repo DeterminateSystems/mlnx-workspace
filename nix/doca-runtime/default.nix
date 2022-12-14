@@ -2,12 +2,13 @@
 , pkgs
 , kernelPackages
 , doca-tools
+, linux, linux_latest
 }:
 rec {
   mlnx_dpdk = self.callPackage ./mlnx_dpdk.nix { }; # done
   rdma_core = self.callPackage ./rdma_core.nix { }; # done
   ibacm = self.callPackage ./ibacm.nix { }; # done
-  mlnx_ofed_kernel_dkms = self.callPackage ./mlnx58.nix { src' = mlnx_ofed_kernel_dkms_src; kernel = kernel_5_8; }; # problematic
+  mlnx_ofed_kernel_dkms = self.callPackage ./mlnx58.nix { inherit mlnx_ofed_kernel_dkms_src; kernel = kernel_5_8; }; # problematic
   mlnx_ofed_kernel_dkms_src = self.callPackage ./mlnx58src.nix { }; # problematic (not really, but part of it)
   iser_dkms = self.callPackage ./iser_dkms.nix { kernel = kernel_5_8; }; # problematic
   # iser_dkms = kernelPackages.callPackage ./iser_dkms.nix { };

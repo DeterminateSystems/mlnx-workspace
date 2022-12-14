@@ -1,36 +1,57 @@
 { stdenv
-, src'
+, buildLinux
+, mlnx_ofed_kernel_dkms_src
 , fetchzip
 , kernel
 , pkgs
+, applyPatches
+, rsync
+, fetchpatch
+, kmod
 }:
-  let
-  s = fetchzip {
-    url = "mirror://kernel/linux/kernel/v5.x/linux-5.8.18.tar.xz";
-    hash = "sha256-jnu9O49lO7bCkdq8tN34kK61pW0dEq8JVsOUv9ee1Ug=";
+let
+  lib = pkgs.lib // {
+    elementsInDir = dir: lib.mapAttrsToList (name: type: { inherit type name; path = dir + "/${name}"; }) (builtins.readDir dir);
+    filesInDir = dir: map ({ path, ... }: path) (pkgs.lib.filter (entry: entry.type == "regular") (lib.elementsInDir dir));
   };
-  in
-stdenv.mkDerivation {
-  name = "mlnx-5.8";
+in stdenv.mkDerivation rec {
+  pname = "mlnx-ofed-modules";
+  inherit (kernel) version;
 
-  src = src' + "/src/mlnx-ofed-kernel-5.8";
+  src = mlnx_ofed_kernel_dkms_src + "/src/mlnx-ofed-kernel-5.8";
 
-  nativeBuildInputs = with pkgs;
-    [
-      autoPatchelfHook
-      dpkg
-    ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = with pkgs; [
+    autoPatchelfHook
+  ] ++ kernel.moduleBuildDependencies;
 
-  buildInputs = [ kernel ];
+  makeFlags = kernel.makeFlags ++ [
+    "INSTALL_PATH=${placeholder "out"}/lib/modules/${kernel.modDirVersion}"
+  ];
+  installFlags = kernel.installFlags ++ [
+    "INSTALL_PATH=${placeholder "out"}/lib/modules/${kernel.modDirVersion}"
+    "DEPMOD=${kmod}/bin/depmod"
+  ];
+  KSRC="${kernel.dev}/lib/modules/${kernel.modDirVersion}/source";
+  KSRC_OBJ="${kernel.dev}/lib/modules/${kernel.modDirVersion}/source/build";
+  KLIB_BUILD="${kernel.dev}/lib/modules/${kernel.modDirVersion}/source/build";
+
+  configureFlags = [
+    "--with-core-mod"
+    "--with-user_mad-mod"
+    "--with-user_access-mod"
+    "--with-addr_trans-mod"
+    "--with-mlx5-mod"
+    "--with-mlxfw-mod"
+    "--with-ipoib-mod"
+    #"--with-nvmf_host-mod"
+    #"--with-nvmf_target-mod"
+  ];
 
   preConfigure = ''
-  # configurePhase = '''
-    mkdir ./kernel-5.8.18
-    cp -r ${s}/* ./kernel-5.8.18
-    ln -s ${kernel.configfile} ./kernel-5.8.18/.config
-    export KSRC=$PWD/kernel-5.8.18
-    # export KBUILD_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build
-    sed -E '/\/nix\/store/! s@/bin/@@' -i ./configure -i ./makefile
-    # ./configure --kernel-version=5.8.18 --kernel-sources=${s} --with-njobs=$NIX_BUILD_CORES
+    configureFlagsArray+=("--with-njobs=$NIX_BUILD_CORES")
   '';
-} 
+
+  postPatch = ''
+    find . -type f -exec sed -E '/\/nix\/store/! s@/bin/@@' -i {} +
+  '';
+}
