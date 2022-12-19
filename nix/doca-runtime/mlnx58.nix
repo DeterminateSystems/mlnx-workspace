@@ -8,6 +8,8 @@
 , rsync
 , fetchpatch
 , kmod
+, pahole
+, breakpointHook
 }:
 let
   lib = pkgs.lib // {
@@ -22,6 +24,8 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = with pkgs; [
     autoPatchelfHook
+    pahole
+    breakpointHook
   ] ++ kernel.moduleBuildDependencies;
 
   makeFlags = kernel.makeFlags ++ [
